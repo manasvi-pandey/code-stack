@@ -9,6 +9,15 @@ const NavbarWrapper = styled.nav`
     ion-icon {
         font-size: 3rem;
     }
+
+    .logo {
+        font-size: 2.6rem;
+        font-family: "Noto Sans JP", sans-serif;
+
+        &__first {
+            color: var(--color-2);
+        }
+    }
 `;
 
 export default NavbarWrapper;

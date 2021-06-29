@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const ArticleWrapper = styled.div`
   margin-top: 2.4rem;
@@ -21,6 +22,9 @@ const ArticleWrapper = styled.div`
 
     &__title {
       font-size: 1.6rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: #000;
     }
 
     &__author {
@@ -36,7 +40,9 @@ export default function Article({ data }) {
       <div className="image"></div>
       <div className="content">
         <p className="content__category">{data.category}</p>
-        <h3 className="content__title">{data.title}</h3>
+        <Link to="/blog/single-blog-title-slug" className="content__title">
+          {data.title}
+        </Link>
         <p className="content__author">By: {data.author}</p>
       </div>
     </ArticleWrapper>

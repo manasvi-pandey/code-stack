@@ -19,10 +19,22 @@ const GreetingsWrapper = styled.div`
 `;
 
 export default function HomeContainer() {
+  const d = new Date();
+  const time = d.getHours();
+  let greeting = "Morning";
+
+  if (time > 12 && time < 16) {
+    greeting = "Afternoon";
+  } else if (time > 16) {
+    greeting = "Evening";
+  }
+
+  console.log(time);
+
   return (
     <>
       <GreetingsWrapper>
-        <h1>Good Morning!</h1>
+        <h1>Good {greeting}!</h1>
         <p>How are you, Mann?</p>
       </GreetingsWrapper>
       <Categories />
