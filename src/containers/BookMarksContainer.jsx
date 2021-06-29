@@ -21,7 +21,7 @@ const BookmarksWrapper = styled.div`
   }
 `;
 
-export default function BookMarksContainer() {
+export default function BookmarksContainer() {
   return (
     <BookmarksWrapper>
       <img src={NotFoundImage} alt="Bookmarks not found" />

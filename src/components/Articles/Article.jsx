@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import ProfilePhoto from "../shared/ProfilePhoto/ProfilePhoto";
+
 import { Link } from "react-router-dom";
 
 const ArticleWrapper = styled.div`
@@ -31,6 +33,11 @@ const ArticleWrapper = styled.div`
       margin-top: 0.6rem;
       color: var(--color-gray-3);
       font-size: 1.3rem;
+      display: flex;
+
+      p {
+        margin-left: 1rem;
+      }
     }
   }
 `;
@@ -43,7 +50,10 @@ export default function Article({ data }) {
         <Link to="/blog/single-blog-title-slug" className="content__title">
           {data.title}
         </Link>
-        <p className="content__author">By: {data.author}</p>
+        <div className="content__author">
+          <ProfilePhoto height="20px" width="20px" />
+          <p>{data.author}</p>
+        </div>
       </div>
     </ArticleWrapper>
   );

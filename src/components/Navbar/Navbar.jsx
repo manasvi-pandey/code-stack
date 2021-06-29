@@ -8,7 +8,7 @@ export default function Navbar() {
         <span className="logo__first">Code</span>
         <span className="logo__second">Stack</span>
       </h1>
-      <ProfilePhoto />
+      <ProfilePhoto height="50px" width="50px" />
     </NavbarWrapper>
   );
 }

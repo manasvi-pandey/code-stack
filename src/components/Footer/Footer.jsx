@@ -11,7 +11,9 @@ export default function Footer() {
         <ion-icon name="bookmark"></ion-icon>
       </Link>
       <div className="edit-icon">
-        <ion-icon name="create"></ion-icon>
+        <Link to="/create">
+          <ion-icon name="create"></ion-icon>
+        </Link>
       </div>
       <Link to="/about">
         <ion-icon name="information-circle"></ion-icon>

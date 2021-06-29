@@ -6,7 +6,7 @@ const FooterWrapper = styled.footer`
   bottom: 0;
   width: 100%;
   height: 5.6rem;
-  border: 1px solid rgba(0, 0, 0, .2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -22,7 +22,7 @@ const FooterWrapper = styled.footer`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--color-1);
+    background: var(--color-2);
     padding: 1.4rem;
     border-radius: 10rem;
     position: absolute;
