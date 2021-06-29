@@ -74,7 +74,7 @@ export default function PostActionsContainer() {
         <div className="post_action">
           <Button>Go back</Button>
           <Button additionalStyles={{ marginLeft: ".6rem" }}>
-            Create post
+            Create new post
           </Button>
         </div>
       </div>
