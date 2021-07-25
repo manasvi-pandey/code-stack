@@ -7,11 +7,13 @@ import SingleBlogContainer from "./containers/SingleBlogContainer";
 import PostActionsContainer from "./containers/PostActionsContainer";
 import Footer from "./components/Footer/Footer";
 
+import AuthProvider from './store/auth-context';
+
 import { Route, Switch } from "react-router-dom";
 
 function App() {
   return (
-    <div>
+    <AuthProvider>
       <Navbar />
       <Switch>
         <Route exact path={["/", "/home"]}>
@@ -32,7 +34,7 @@ function App() {
         </Route>
       </Switch>
       <Footer />
-    </div>
+    </AuthProvider>
   );
 }
 

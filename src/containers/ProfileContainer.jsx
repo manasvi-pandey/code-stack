@@ -1,4 +1,7 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import Button from "../components/shared/Button/Button";
+import { AuthContext } from "../store/auth-context";
 
 const ProfileWrapper = styled.div`
   padding: 2rem;
@@ -31,6 +34,8 @@ const ProfileWrapper = styled.div`
 `;
 
 export default function ProfileContainer() {
+  const { handleLogout } = useContext(AuthContext);
+
   return (
     <ProfileWrapper>
       <h1>Your Profile</h1>
@@ -42,6 +47,9 @@ export default function ProfileContainer() {
         <p className="heading">About</p>
         <p className="detail-about">Web Software Developer</p>
       </div>
+      <Button additionalStyles={{ marginTop: "3rem" }} cta={handleLogout}>
+        Sign out
+      </Button>
     </ProfileWrapper>
   );
 }

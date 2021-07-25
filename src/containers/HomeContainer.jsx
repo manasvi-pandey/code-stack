@@ -29,8 +29,6 @@ export default function HomeContainer() {
     greeting = "Evening";
   }
 
-  console.log(time);
-
   return (
     <>
       <GreetingsWrapper>
