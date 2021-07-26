@@ -3,7 +3,7 @@ import Article from "./Article";
 
 const ArticlesWrapper = styled.div`
   margin-top: 1.6rem;
-  padding: 2rem 2rem 20rem 2rem;
+  padding: 2rem 2rem 0 2rem;
   font-family: "Noto Sans JP", sans-serif;
 
   h1 {

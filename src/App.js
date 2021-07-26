@@ -7,7 +7,7 @@ import SingleBlogContainer from "./containers/SingleBlogContainer";
 import PostActionsContainer from "./containers/PostActionsContainer";
 import Footer from "./components/Footer/Footer";
 
-import AuthProvider from './store/auth-context';
+import AuthProvider from "./store/auth-context";
 
 import { Route, Switch } from "react-router-dom";
 

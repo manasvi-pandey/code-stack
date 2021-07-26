@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { db } from "../../firebase";
 import Category from "./Category";
 
 const CategoriesWrapper = styled.div`
@@ -20,7 +21,21 @@ const CategoriesWrapper = styled.div`
 `;
 export default function Categories() {
   const [selected, setSelected] = useState("TypeScript");
-  const [options] = useState(["JavaScript", "TypeScript", "PHP", "ReactJS"]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    let categoriesArr = [];
+    db.collection("categories")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          categoriesArr.push(doc.data());
+        });
+
+        setCategories(categoriesArr);
+      })
+      .catch((err) => console.err("Unable to fetch categories ❌: " + err));
+  }, []);
 
   function setAsSelected(option) {
     setSelected(option);
@@ -29,12 +44,12 @@ export default function Categories() {
   return (
     <CategoriesWrapper>
       <div className="category-container">
-        {options.map((option) => (
+        {categories.map((category) => (
           <Category
-            name={option}
-            key={option}
-            selected={selected === option}
-            selectOption={() => setAsSelected(option)}
+            name={category.name}
+            key={category.id}
+            selected={selected === category.name}
+            selectOption={() => setAsSelected(category.name)}
           />
         ))}
       </div>

@@ -6,9 +6,8 @@ import { AuthContext } from "../../../store/auth-context";
 const ProfileWrapper = styled.div`
   height: ${({ height }) => height};
   width: ${({ width }) => width};
-  background: var(--color-1);
+  border: 3px solid var(--color-1);
   border-radius: 10rem;
-  padding: 0.2rem;
   cursor: pointer;
 
   img {
