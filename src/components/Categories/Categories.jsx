@@ -17,6 +17,10 @@ const CategoriesWrapper = styled.div`
     &::-webkit-scrollbar {
       display: none;
     }
+
+    .skeleton-section {
+      display: flex;
+    }
   }
 `;
 export default function Categories() {

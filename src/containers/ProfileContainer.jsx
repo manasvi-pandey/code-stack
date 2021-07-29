@@ -168,7 +168,13 @@ export default function ProfileContainer() {
             </p>
           </div>
         </div>
-        <Button additionalStyles={{ marginTop: "3rem" }} cta={handleLogout}>
+        {userData.role === "admin" && (
+          <Button additionalStyles={{ marginTop: "3rem" }}>Admin area</Button>
+        )}
+        <Button
+          additionalStyles={{ marginTop: "3rem", marginLeft: ".4rem" }}
+          cta={handleLogout}
+        >
           Sign out
         </Button>
       </ProfileWrapper>

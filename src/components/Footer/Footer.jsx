@@ -7,7 +7,7 @@ import Button from "../shared/Button/Button";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
-  const { authUser } = useContext(AuthContext);
+  const { authUser, handleProfile } = useContext(AuthContext);
   const [modalVisibility, setModalVisibility] = useState(false);
 
   function openLoginConfirmationModal() {
@@ -42,9 +42,7 @@ export default function Footer() {
         <Link to="/about">
           <ion-icon name="information-circle"></ion-icon>
         </Link>
-        <Link to="/profile">
-          <ion-icon name="person"></ion-icon>
-        </Link>
+        <ion-icon name="person" onClick={handleProfile}></ion-icon>
       </FooterWrapper>
 
       <Modal

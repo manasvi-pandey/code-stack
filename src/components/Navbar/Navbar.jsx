@@ -1,17 +1,10 @@
 import { useContext } from "react";
 import NavbarWrapper from "./Navbar.styles";
 import ProfilePhoto from "../shared/ProfilePhoto/ProfilePhoto";
-import { useHistory } from "react-router";
 import { AuthContext } from "../../store/auth-context";
 
 export default function Navbar() {
-  const { handleLogin, authUser } = useContext(AuthContext);
-  const history = useHistory();
-
-  function handleProfile() {
-    authUser?.uid ? history.push("/profile") : handleLogin();
-  }
-
+  const { handleProfile } = useContext(AuthContext);
   return (
     <NavbarWrapper>
       <h1 className="logo">

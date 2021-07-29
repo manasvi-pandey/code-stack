@@ -58,6 +58,10 @@ export default function AuthProvider(props) {
       });
   }
 
+  function handleProfile() {
+    authUser?.uid ? history.push("/profile") : handleLogin();
+  }
+
   function handleLogout() {
     firebase
       .auth()
@@ -72,7 +76,7 @@ export default function AuthProvider(props) {
       });
   }
 
-  const value = { authUser, handleLogin, handleLogout };
+  const value = { authUser, handleLogin, handleLogout, handleProfile };
 
   return (
     <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
