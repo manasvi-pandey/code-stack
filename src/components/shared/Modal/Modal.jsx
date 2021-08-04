@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import ReactDOM from "react-dom";
 import ModalWrapper from "./Modal.styles";
 
 export default function Modal({ children, modalVisibility, closeModal }) {
-  document.querySelector("body").style.overflow = "hidden";
+  useEffect(() => {
+    modalVisibility
+      ? (document.querySelector("body").style.overflow = "hidden")
+      : (document.querySelector("body").style.overflow = "visible");
+  }, [modalVisibility]);
 
   return (
     modalVisibility &&

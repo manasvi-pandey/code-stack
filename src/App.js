@@ -7,6 +7,8 @@ import SingleBlogContainer from "./containers/SingleBlogContainer";
 import PostActionsContainer from "./containers/PostActionsContainer";
 import Footer from "./components/Footer/Footer";
 
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 import AuthProvider from "./store/auth-context";
 
 import { Route, Switch } from "react-router-dom";

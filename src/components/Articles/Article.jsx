@@ -6,16 +6,23 @@ import { Link } from "react-router-dom";
 const ArticleWrapper = styled.div`
   margin-top: 2.4rem;
   display: flex;
+  align-items: flex-start;
 
   .image {
     height: 8rem;
     width: 8rem;
-    background: var(--color-3);
     border-radius: 1rem;
+    flex-shrink: 0;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+    }
   }
 
   .content {
     margin-left: 2.4rem;
+    flex: 1;
 
     &__category {
       color: var(--color-gray-3);
@@ -44,7 +51,9 @@ const ArticleWrapper = styled.div`
 export default function Article({ data }) {
   return (
     <ArticleWrapper>
-      <div className="image"></div>
+      <div className="image">
+        <img src={data.image} alt="blog" />
+      </div>
       <div className="content">
         <p className="content__category">{data.category}</p>
         <Link to="/blog/single-blog-title-slug" className="content__title">

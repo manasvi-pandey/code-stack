@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import Skeleton from "react-loading-skeleton";
 
 const CategoryWrapper = styled.div`
   padding: 1.2rem 1.6rem;
@@ -21,7 +20,7 @@ const CategoryWrapper = styled.div`
 export default function Category({ name, selected, selectOption }) {
   return (
     <CategoryWrapper selected={selected} onClick={selectOption}>
-      <h1>{name || <Skeleton height={30} width={70} />}</h1>
+      <h1>{name}</h1>
     </CategoryWrapper>
   );
 }

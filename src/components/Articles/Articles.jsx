@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
+import Loader from "react-loader-spinner";
 import Article from "./Article";
+import { db } from "../../firebase";
 import ArticlesNotFound from "../../assets/articles_not_found.svg";
-import { AuthContext } from "../../store/auth-context";
 
 const ArticlesWrapper = styled.div`
   margin-top: 1.6rem;
@@ -30,25 +31,44 @@ const ArticlesWrapper = styled.div`
       margin-top: 1.6rem;
     }
   }
+
+  .loader-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
 `;
 
-const articles = [];
-
 export default function Articles() {
+  const [loader, setLoader] = useState(true);
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    let articlesArr = [];
+    db.collection("articles")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          articlesArr.push(doc.data());
+          setLoader(false);
+        });
+
+        setArticles(articlesArr);
+      })
+      .catch((err) => console.err("Unable to fetch articles ❌: " + err));
+  }, []);
+
   return (
     <ArticlesWrapper>
       <h1>Recent Articles</h1>
+      {loader && (
+        <div className="loader-container">
+          <Loader type="ThreeDots" color="#6a89cc" height={40} width={40} />
+        </div>
+      )}
       {articles.length > 0 &&
-        articles.map((article) => (
-          <Article
-            data={{
-              category: article.category,
-              title: article.title,
-              author: article.author,
-            }}
-          />
-        ))}
-      {articles.length === 0 && (
+        articles.map((article) => <Article data={article} />)}
+      {!loader && articles.length === 0 && (
         <div className="no-articles">
           <img
             src={ArticlesNotFound}
