@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import styled from "styled-components";
 import Loader from "react-loader-spinner";
 import Article from "./Article";
@@ -7,7 +7,7 @@ import ArticlesNotFound from "../../assets/articles_not_found.svg";
 
 const ArticlesWrapper = styled.div`
   margin-top: 1.6rem;
-  padding: 2rem 2rem 0 2rem;
+  padding: 2rem 2rem 20rem 2rem;
   font-family: "Noto Sans JP", sans-serif;
 
   h1 {
@@ -39,24 +39,26 @@ const ArticlesWrapper = styled.div`
   }
 `;
 
-export default function Articles() {
+function Articles({ selectedCategory }) {
   const [loader, setLoader] = useState(true);
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
     let articlesArr = [];
+    let condition = selectedCategory === "All" ? "!=" : "==";
+
     db.collection("articles")
+      .where("category", condition, selectedCategory)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           articlesArr.push(doc.data());
-          setLoader(false);
         });
-
         setArticles(articlesArr);
       })
-      .catch((err) => console.err("Unable to fetch articles ❌: " + err));
-  }, []);
+      .catch((err) => console.err("Unable to fetch articles ❌: " + err))
+      .finally(() => setLoader(false));
+  }, [selectedCategory]);
 
   return (
     <ArticlesWrapper>
@@ -67,7 +69,7 @@ export default function Articles() {
         </div>
       )}
       {articles.length > 0 &&
-        articles.map((article) => <Article data={article} />)}
+        articles.map((article) => <Article data={article} key={article.id} />)}
       {!loader && articles.length === 0 && (
         <div className="no-articles">
           <img
@@ -81,3 +83,9 @@ export default function Articles() {
     </ArticlesWrapper>
   );
 }
+
+function renderClause(prevState, nextState) {
+  return prevState.selectedCategory === nextState.selectedCategory;
+}
+
+export default memo(Articles, renderClause);

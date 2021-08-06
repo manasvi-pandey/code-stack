@@ -11,14 +11,17 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import AuthProvider from "./store/auth-context";
 
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 function App() {
   return (
     <AuthProvider>
       <Navbar />
       <Switch>
-        <Route exact path={["/", "/home"]}>
+        <Route exact path="/">
+          <Redirect to="/home" />
+        </Route>
+        <Route exact path="/home">
           <HomeContainer />
         </Route>
         <Route path="/about">
@@ -31,9 +34,10 @@ function App() {
           <ProfileContainer />
         </Route>
         <Route path="/blog/:slug" component={SingleBlogContainer} />
-        <Route path="/create">
-          <PostActionsContainer />
-        </Route>
+        <Route
+          path={["/create/:postID", "/create"]}
+          component={PostActionsContainer}
+        />
       </Switch>
       <Footer />
     </AuthProvider>

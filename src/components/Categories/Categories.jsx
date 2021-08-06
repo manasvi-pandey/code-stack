@@ -30,15 +30,15 @@ const CategoriesWrapper = styled.div`
     justify-content: center;
   }
 `;
-export default function Categories() {
+export default function Categories({ selected, setAsSelected }) {
   const [loader, setLoader] = useState(false);
-  const [selected, setSelected] = useState("TypeScript");
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     let categoriesArr = [];
     setLoader(true);
     db.collection("categories")
+      .orderBy("order", "asc")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -50,10 +50,6 @@ export default function Categories() {
       })
       .catch((err) => console.err("Unable to fetch categories ❌: " + err));
   }, []);
-
-  function setAsSelected(option) {
-    setSelected(option);
-  }
 
   return (
     <CategoriesWrapper>

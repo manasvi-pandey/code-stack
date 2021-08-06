@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import ProfilePhoto from "../shared/ProfilePhoto/ProfilePhoto";
 
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../store/auth-context";
 
 const ArticleWrapper = styled.div`
   margin-top: 2.4rem;
@@ -36,6 +38,18 @@ const ArticleWrapper = styled.div`
       color: #000;
     }
 
+    .title_and_action {
+      display: flex;
+      align-items: center;
+
+      ion-icon {
+        margin-left: 0.8rem;
+        margin-top: 0.4rem;
+        color: var(--color-2);
+        font-size: 1.4rem;
+      }
+    }
+
     &__author {
       margin-top: 0.6rem;
       color: var(--color-gray-3);
@@ -49,6 +63,8 @@ const ArticleWrapper = styled.div`
   }
 `;
 export default function Article({ data }) {
+  const { authUser } = useContext(AuthContext);
+
   return (
     <ArticleWrapper>
       <div className="image">
@@ -56,11 +72,18 @@ export default function Article({ data }) {
       </div>
       <div className="content">
         <p className="content__category">{data.category}</p>
-        <Link to="/blog/single-blog-title-slug" className="content__title">
-          {data.title}
-        </Link>
+        <div className="title_and_action">
+          <Link to={`/blog/${data.slug}`} className="content__title">
+            {data.title}{" "}
+          </Link>
+          {data.author_id === authUser?.uid && (
+            <Link to={`/create/${data.id}`}>
+              <ion-icon name="create"></ion-icon>
+            </Link>
+          )}
+        </div>
         <div className="content__author">
-          <ProfilePhoto height="20px" width="20px" />
+          <ProfilePhoto height="20px" width="20px" imgURL={data.author_photo} />
           <p>{data.author}</p>
         </div>
       </div>

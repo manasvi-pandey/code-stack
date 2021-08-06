@@ -4,7 +4,7 @@ import { AuthContext } from "../../store/auth-context";
 import FooterWrapper from "./Footer.styles";
 import Modal from "../shared/Modal/Modal";
 import Button from "../shared/Button/Button";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 export default function Footer() {
   const { authUser, handleProfile } = useContext(AuthContext);
@@ -21,12 +21,12 @@ export default function Footer() {
   return (
     <>
       <FooterWrapper>
-        <Link to="/home">
+        <NavLink to="/home">
           <ion-icon name="home"></ion-icon>
-        </Link>
-        <Link to="/bookmarks">
+        </NavLink>
+        <NavLink to="/bookmarks">
           <ion-icon name="bookmark"></ion-icon>
-        </Link>
+        </NavLink>
         <div className="edit-icon">
           {authUser?.uid ? (
             <Link to="/create">
@@ -39,10 +39,16 @@ export default function Footer() {
             ></ion-icon>
           )}
         </div>
-        <Link to="/about">
+        <NavLink to="/about">
           <ion-icon name="information-circle"></ion-icon>
-        </Link>
-        <ion-icon name="person" onClick={handleProfile}></ion-icon>
+        </NavLink>
+        {authUser?.uid ? (
+          <NavLink to="/profile">
+            <ion-icon name="person"></ion-icon>
+          </NavLink>
+        ) : (
+          <ion-icon name="person" onClick={handleProfile}></ion-icon>
+        )}
       </FooterWrapper>
 
       <Modal

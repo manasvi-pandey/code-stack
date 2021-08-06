@@ -1,7 +1,7 @@
-import { useRef, useState, useContext } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import Button from "../components/shared/Button/Button";
-
+import { useHistory } from "react-router-dom";
 import { db } from "../firebase";
 import { v4 as uuidv4 } from "uuid";
 import { AuthContext } from "../store/auth-context";
@@ -42,8 +42,10 @@ const PostActionsWrapper = styled.div`
     }
 
     textarea {
+      font-family: "Noto Sans JP", sans-serif;
+
       &::placeholder {
-        font-family: "Noto Sans JP", sans-serif;
+        font-family: inherit;
         font-size: 1.2rem;
       }
     }
@@ -63,7 +65,9 @@ const PostActionsWrapper = styled.div`
   }
 `;
 
-export default function PostActionsContainer() {
+export default function PostActionsContainer({ match }) {
+  const { postID } = match.params;
+  const history = useHistory();
   const [formErrors, setFormErrors] = useState({
     title: false,
     category: false,
@@ -78,6 +82,28 @@ export default function PostActionsContainer() {
   const postImage = useRef(null);
   const postBody = useRef(null);
 
+  useEffect(() => {
+    if (postID) {
+      fetchSinglePost(postID);
+    }
+  }, []);
+
+  function fetchSinglePost(postID) {
+    db.collection("articles")
+      .where("id", "==", postID)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.empty && history.push("/");
+        querySnapshot.forEach((doc) => {
+          postTitle.current.value = doc.data().title;
+          postCategory.current.value = doc.data().category;
+          postImage.current.value = doc.data().image;
+          postBody.current.value = doc.data().body;
+        });
+      })
+      .catch((err) => console.error("Unable to get post for edit ❌: " + err));
+  }
+
   function addNewPost() {
     if (runFormValidator()) {
       saveNewPost();
@@ -86,27 +112,29 @@ export default function PostActionsContainer() {
 
   function saveNewPost() {
     let slug = slugifyTitle(postTitle.current.value);
-    if (!slugExistsInDB(slug)) {
-      let uid = generateUUIDForPost(),
-        author = authUser?.displayName,
-        authorID = authUser?.uid;
+    let uid = generateUUIDForPost(),
+      author = authUser?.displayName,
+      authorID = authUser?.uid;
 
-      db.collection("articles")
-        .doc(uid)
-        .set({
-          author,
-          author_id: authorID,
-          body: postBody.current.value,
-          category: postCategory.current.value,
-          created_at: new Date(),
-          id: uid,
-          image: postImage.current.value,
-          slug,
-          title: postTitle.current.value,
-        })
-        .then(() => console.log("New Post created ✔"))
-        .catch((err) => console.error("Unable to add Post ❌: " + err));
-    }
+    db.collection("articles")
+      .doc(postID ? postID : uid)
+      .set({
+        author,
+        author_id: authorID,
+        author_photo: authUser?.photoURL,
+        body: postBody.current.value,
+        category: postCategory.current.value,
+        created_at: new Date(),
+        id: uid,
+        image: postImage.current.value,
+        slug: slugExistsInDB ? newUniqueSlug(slug) : slug,
+        title: postTitle.current.value,
+      })
+      .then(() => {
+        console.log("New Post created ✔");
+        history.push("/");
+      })
+      .catch((err) => console.error("Unable to add Post ❌: " + err));
   }
 
   function generateUUIDForPost() {
@@ -123,6 +151,11 @@ export default function PostActionsContainer() {
       .catch((err) =>
         console.error("Unable to check for slug existence ❌: " + err)
       );
+  }
+
+  function newUniqueSlug(slug) {
+    let uniqueNumber = Math.floor(Math.random() * 90000) + 10000;
+    return slug + "-" + uniqueNumber;
   }
 
   function slugifyTitle(title) {
@@ -196,9 +229,15 @@ export default function PostActionsContainer() {
           style={{ borderColor: formErrors.body ? "red" : "inherit" }}
         ></textarea>
         <div className="post_action">
-          <Button>Go back</Button>
+          <Button
+            cta={() => {
+              history.goBack();
+            }}
+          >
+            Go back
+          </Button>
           <Button additionalStyles={{ marginLeft: ".6rem" }} cta={addNewPost}>
-            Create new post
+            {postID ? "Update post" : "Create new post"}
           </Button>
         </div>
       </div>

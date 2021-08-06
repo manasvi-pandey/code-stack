@@ -1,6 +1,8 @@
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import Categories from "../components/Categories/Categories";
 import Articles from "../components/Articles/Articles";
+import { AuthContext } from "../store/auth-context";
 
 const GreetingsWrapper = styled.div`
   font-family: "Noto Sans JP", sans-serif;
@@ -19,6 +21,9 @@ const GreetingsWrapper = styled.div`
 `;
 
 export default function HomeContainer() {
+  const { authUser } = useContext(AuthContext);
+  const [selected, setSelected] = useState("All");
+
   const d = new Date();
   const time = d.getHours();
   let greeting = "Morning";
@@ -29,14 +34,21 @@ export default function HomeContainer() {
     greeting = "Evening";
   }
 
+  function setAsSelected(option) {
+    setSelected(option);
+  }
+
   return (
     <>
       <GreetingsWrapper>
         <h1>Good {greeting}!</h1>
-        <p>How are you, Mann?</p>
+        <p>
+          How are you,{" "}
+          {authUser?.uid ? authUser.displayName.split(" ")[0] : "Coder"} ?
+        </p>
       </GreetingsWrapper>
-      <Categories />
-      <Articles />
+      <Categories selected={selected} setAsSelected={setAsSelected} />
+      <Articles selectedCategory={selected} />
     </>
   );
 }

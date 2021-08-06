@@ -16,6 +16,12 @@ const FooterWrapper = styled.footer`
     color: var(--color-gray-2);
   }
 
+  .active {
+    ion-icon {
+      color: var(--color-2);
+    }
+  }
+
   .edit-icon {
     height: 60px;
     width: 60px;

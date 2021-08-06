@@ -1,7 +1,5 @@
-import { useContext } from "react";
 import styled from "styled-components";
 import hulk from "../../../assets/hulk.svg";
-import { AuthContext } from "../../../store/auth-context";
 
 const ProfileWrapper = styled.div`
   height: ${({ height }) => height};
@@ -19,13 +17,12 @@ const ProfileWrapper = styled.div`
 export default function ProfilePhoto({
   height = "50px",
   width = "50px",
+  imgURL = "",
   cta = () => {},
 }) {
-  const { authUser } = useContext(AuthContext);
-
   return (
     <ProfileWrapper height={height} width={width} onClick={cta}>
-      <img alt="Profile" src={authUser?.uid ? authUser.photoURL : hulk} />
+      <img alt="Profile" src={imgURL !== "" ? imgURL : hulk} />
     </ProfileWrapper>
   );
 }
