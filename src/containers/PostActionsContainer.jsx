@@ -1,5 +1,6 @@
-import { useRef, useState, useContext, useEffect } from "react";
+import { useRef, useState, useContext, useEffect, useCallback } from "react";
 import styled from "styled-components";
+import "react-quill/dist/quill.snow.css";
 import Button from "../components/shared/Button/Button";
 import { useHistory } from "react-router-dom";
 import { db } from "../firebase";
@@ -82,13 +83,7 @@ export default function PostActionsContainer({ match }) {
   const postImage = useRef(null);
   const postBody = useRef(null);
 
-  useEffect(() => {
-    if (postID) {
-      fetchSinglePost(postID);
-    }
-  }, []);
-
-  function fetchSinglePost(postID) {
+  const fetchSinglePost = useCallback(() => {
     db.collection("articles")
       .where("id", "==", postID)
       .get()
@@ -102,7 +97,11 @@ export default function PostActionsContainer({ match }) {
         });
       })
       .catch((err) => console.error("Unable to get post for edit ❌: " + err));
-  }
+  }, [postID, history]);
+
+  useEffect(() => {
+    postID && fetchSinglePost(postID);
+  }, [fetchSinglePost, postID]);
 
   function addNewPost() {
     if (runFormValidator()) {
