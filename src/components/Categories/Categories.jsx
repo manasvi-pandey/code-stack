@@ -14,6 +14,7 @@ const CategoriesWrapper = styled.div`
     display: flex;
     align-items: center;
     overflow-x: auto;
+    scrollbar-width: none;
 
     &::-webkit-scrollbar {
       display: none;
