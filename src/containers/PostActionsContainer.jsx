@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { AuthContext } from "../store/auth-context";
 
 const PostActionsWrapper = styled.div`
-  padding: 2rem;
+  padding: 2rem 2rem 10rem 2rem;
   font-family: "Noto Sans JP", sans-serif;
 
   .container_title {
@@ -72,9 +72,19 @@ export default function PostActionsContainer({ match }) {
   const [formErrors, setFormErrors] = useState({
     title: false,
     category: false,
-    image: false,
     body: false,
   });
+
+  /* Default image for each category, will be used if user does not provide an image */
+  const defaultPostImages = {
+    JavaScript:
+      "https://cdn.freebiesupply.com/logos/large/2x/javascript-logo-png-transparent.png",
+    TypeScript: "https://bestofjs.org/logos/typescript.svg",
+    Laravel:
+      "http://gatelogsystems.com/wp-content/uploads/2020/07/laravel-icon.png",
+    ReactJS: "https://cdn.iconscout.com/icon/free/png-512/react-1-282599.png",
+    PHP: "https://equestsolutions.net/wp-content/uploads/2014/08/php-logo.jpg",
+  };
 
   const { authUser } = useContext(AuthContext);
 
@@ -125,7 +135,7 @@ export default function PostActionsContainer({ match }) {
         category: postCategory.current.value,
         created_at: new Date(),
         id: uid,
-        image: postImage.current.value,
+        image: postImage.current.value !== "" ? postImage.current.value : defaultPostImages[postCategory.current.value],
         slug: slugExistsInDB ? newUniqueSlug(slug) : slug,
         title: postTitle.current.value,
       })
@@ -162,7 +172,7 @@ export default function PostActionsContainer({ match }) {
   }
 
   function runFormValidator() {
-    setFormErrors({ title: false, category: false, image: false, body: false });
+    setFormErrors({ title: false, category: false, body: false });
     if (postTitle.current.value === "") {
       setError("title");
       return false;
@@ -170,11 +180,6 @@ export default function PostActionsContainer({ match }) {
 
     if (postCategory.current.value === "") {
       setError("category");
-      return false;
-    }
-
-    if (postImage.current.value === "") {
-      setError("image");
       return false;
     }
 
@@ -218,9 +223,9 @@ export default function PostActionsContainer({ match }) {
           placeholder="Relevant image link related to post"
           id="post-image"
           ref={postImage}
-          style={{ borderColor: formErrors.image ? "red" : "inherit" }}
+          style={{ borderColor: "inherit" }}
         />
-        <small>Image should be of size 50X50 for best fit</small>
+        <small>Image should be of size 50X50 for best fit (optional)</small>
         <textarea
           placeholder="Write a brief post body here"
           rows="10"

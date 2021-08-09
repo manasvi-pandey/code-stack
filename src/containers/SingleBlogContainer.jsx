@@ -42,8 +42,8 @@ const SingleBlogWrapper = styled.div`
 
     .post_area-image {
       margin-top: 2.2rem;
-      height: 20rem;
       width: 100%;
+      max-width: 40rem;
       border-radius: 1rem;
 
       img {

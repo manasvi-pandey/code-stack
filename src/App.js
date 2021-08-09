@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import Navbar from "./components/Navbar/Navbar";
 import HomeContainer from "./containers/HomeContainer";
 import AboutContainer from "./containers/AboutContainer";
@@ -13,34 +14,47 @@ import AuthProvider from "./store/auth-context";
 
 import { Route, Switch, Redirect } from "react-router-dom";
 
+const ApplicationWrapper = styled.div`
+  max-width: 760px;
+  margin: auto;
+  background: #fff;
+  border-radius: 2rem 2rem 0 0;
+
+  @media only screen and (max-width: 760px) {
+    border-radius: 0;
+  }
+`;
+
 function App() {
   return (
-    <AuthProvider>
-      <Navbar />
-      <Switch>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-        <Route exact path="/home">
-          <HomeContainer />
-        </Route>
-        <Route path="/about">
-          <AboutContainer />
-        </Route>
-        <Route path="/bookmarks">
-          <BookmarksContainer />
-        </Route>
-        <Route path="/profile">
-          <ProfileContainer />
-        </Route>
-        <Route path="/blog/:slug" component={SingleBlogContainer} />
-        <Route
-          path={["/create/:postID", "/create"]}
-          component={PostActionsContainer}
-        />
-      </Switch>
-      <Footer />
-    </AuthProvider>
+    <ApplicationWrapper>
+      <AuthProvider>
+        <Navbar />
+        <Switch>
+          <Route exact path="/">
+            <Redirect to="/home" />
+          </Route>
+          <Route exact path="/home">
+            <HomeContainer />
+          </Route>
+          <Route path="/about">
+            <AboutContainer />
+          </Route>
+          <Route path="/bookmarks">
+            <BookmarksContainer />
+          </Route>
+          <Route path="/profile">
+            <ProfileContainer />
+          </Route>
+          <Route path="/blog/:slug" component={SingleBlogContainer} />
+          <Route
+            path={["/create/:postID", "/create"]}
+            component={PostActionsContainer}
+          />
+        </Switch>
+        <Footer />
+      </AuthProvider>
+    </ApplicationWrapper>
   );
 }
 
