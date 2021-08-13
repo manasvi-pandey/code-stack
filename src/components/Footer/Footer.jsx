@@ -7,7 +7,7 @@ import Button from "../shared/Button/Button";
 import { NavLink, Link } from "react-router-dom";
 
 export default function Footer() {
-  const { authUser, handleProfile } = useContext(AuthContext);
+  const { authUser, handleProfile, handleLogin } = useContext(AuthContext);
   const [modalVisibility, setModalVisibility] = useState(false);
 
   function openLoginConfirmationModal() {
@@ -16,6 +16,11 @@ export default function Footer() {
 
   function closeLoginConfimationModal() {
     setModalVisibility(false);
+  }
+
+  function handleLoginFromModal() {
+    setModalVisibility(false);
+    handleLogin();
   }
 
   return (
@@ -61,7 +66,10 @@ export default function Footer() {
           secure Google authentication that sets you up within seconds
         </div>
         <div className="modal-buttons">
-          <Button additionalStyles={{ display: "flex", alignItems: "center" }}>
+          <Button
+            additionalStyles={{ display: "flex", alignItems: "center" }}
+            cta={handleLoginFromModal}
+          >
             <ion-icon name="logo-google"></ion-icon> Sign-in
           </Button>
           <Button

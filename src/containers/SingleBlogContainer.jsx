@@ -9,6 +9,7 @@ const SingleBlogWrapper = styled.div`
   padding: 2rem 2rem 20rem 2rem;
   margin-top: 2rem;
   font-family: "Noto Sans JP", sans-serif;
+  min-height: 85vh;
 
   .author_details {
     display: flex;
@@ -33,6 +34,18 @@ const SingleBlogWrapper = styled.div`
   .post_area {
     margin-top: 3.4rem;
     font-family: "Noto Sans JP", sans-serif;
+
+    .title_and_icon {
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-left: 1rem;
+        margin-top: 0.6rem;
+        height: 2.4rem;
+        width: 2.4rem;
+      }
+    }
 
     .post_area-title {
       font-size: 2.8rem;
@@ -96,6 +109,7 @@ export default function SingleBlogContainer({ match }) {
   const [post, setPost] = useState([]);
   const [loader, setLoader] = useState(true);
   const [categoryData, setCategoryData] = useState([]);
+  const [bookmarked, setBookmarked] = useState(false);
 
   const getRelatedCategoryData = useCallback(
     (category) => {
@@ -136,6 +150,48 @@ export default function SingleBlogContainer({ match }) {
     fetchSinglePostData();
   }, [fetchSinglePostData]);
 
+  useEffect(() => {
+    const bookmarksArr = localStorage.getItem("bookmarks")
+      ? JSON.parse(localStorage.getItem("bookmarks"))
+      : [];
+
+    if (bookmarksArr.includes(post.id)) {
+      setBookmarked(true);
+    } else {
+      setBookmarked(false);
+    }
+  }, [post]);
+
+  function toggleBookmark() {
+    if (bookmarked) {
+      removeFromBookmarks();
+    } else {
+      addToBookmarks();
+    }
+  }
+
+  function removeFromBookmarks() {
+    let bookmarks = localStorage.getItem("bookmarks")
+      ? JSON.parse(localStorage.getItem("bookmarks"))
+      : [];
+    let index = bookmarks.indexOf(post.id);
+    bookmarks.splice(index, 1);
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    setBookmarked(false);
+  }
+
+  function addToBookmarks() {
+    let bookmarks = localStorage.getItem("bookmarks")
+      ? JSON.parse(localStorage.getItem("bookmarks"))
+      : [];
+    let index = bookmarks.indexOf(post.id);
+    if (index === -1) {
+      bookmarks.push(post.id);
+      localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+      setBookmarked(true);
+    }
+  }
+
   function getNumberOfDaysSincePosted(date) {
     let oneDay = 24 * 60 * 60 * 1000;
     let doj = date;
@@ -162,7 +218,18 @@ export default function SingleBlogContainer({ match }) {
         </div>
       </div>
       <div className="post_area">
-        <h1 className="post_area-title">{post.title}</h1>
+        <div className="title_and_icon">
+          <h1 className="post_area-title">{post.title}</h1>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill={bookmarked ? "var(--color-1)" : "var(--color-gray-3)"}
+            onClick={toggleBookmark}
+          >
+            <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+          </svg>
+        </div>
         <div className="post_area-image">
           {loader && (
             <div className="loader-container">

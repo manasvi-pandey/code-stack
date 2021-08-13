@@ -15,6 +15,7 @@ const ModalWrapper = styled.div`
     border-radius: 1rem;
     min-height: 20rem;
     width: 80%;
+    max-width: 640px;
     position: absolute;
     top: 25%;
     animation: renderModalContainer 0.3s;

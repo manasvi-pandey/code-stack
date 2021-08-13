@@ -10,6 +10,7 @@ import { AuthContext } from "../store/auth-context";
 const PostActionsWrapper = styled.div`
   padding: 2rem 2rem 10rem 2rem;
   font-family: "Noto Sans JP", sans-serif;
+  min-height: 85vh;
 
   .container_title {
     font-size: 1.6rem;
@@ -135,7 +136,10 @@ export default function PostActionsContainer({ match }) {
         category: postCategory.current.value,
         created_at: new Date(),
         id: uid,
-        image: postImage.current.value !== "" ? postImage.current.value : defaultPostImages[postCategory.current.value],
+        image:
+          postImage.current.value !== ""
+            ? postImage.current.value
+            : defaultPostImages[postCategory.current.value],
         slug: slugExistsInDB ? newUniqueSlug(slug) : slug,
         title: postTitle.current.value,
       })

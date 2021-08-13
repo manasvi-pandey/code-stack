@@ -7,6 +7,7 @@ import { AuthContext } from "../store/auth-context";
 
 const ProfileWrapper = styled.div`
   padding: 2rem;
+  min-height: 85vh;
 
   h1 {
     font-size: 3.2rem;

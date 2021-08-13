@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import Navbar from "./components/Navbar/Navbar";
 import HomeContainer from "./containers/HomeContainer";
 import AboutContainer from "./containers/AboutContainer";

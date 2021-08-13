@@ -26,12 +26,17 @@ html {
 }
 
 body {
+  background: linear-gradient(to right bottom, var(--color-2), var(--color-1)) fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#root {
   padding-top: 2.4rem;
-  background: linear-gradient(to right bottom, var(--color-2), var(--color-1));
 }
 
 @media only screen and (max-width: 760px) {
-  body {
+  #root {
     padding-top: 0;
   }
 }

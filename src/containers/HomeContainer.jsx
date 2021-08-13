@@ -20,6 +20,10 @@ const GreetingsWrapper = styled.div`
   }
 `;
 
+const HomeContainerWrapper = styled.div`
+  min-height: 85vh;
+`;
+
 export default function HomeContainer() {
   const { authUser } = useContext(AuthContext);
   const [selected, setSelected] = useState("All");
@@ -39,7 +43,7 @@ export default function HomeContainer() {
   }
 
   return (
-    <>
+    <HomeContainerWrapper>
       <GreetingsWrapper>
         <h1>Good {greeting}!</h1>
         <p>
@@ -49,6 +53,6 @@ export default function HomeContainer() {
       </GreetingsWrapper>
       <Categories selected={selected} setAsSelected={setAsSelected} />
       <Articles selectedCategory={selected} />
-    </>
+    </HomeContainerWrapper>
   );
 }

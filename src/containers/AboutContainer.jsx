@@ -3,6 +3,7 @@ import styled from "styled-components";
 const AboutWrapper = styled.div`
   padding: 2rem;
   font-family: "Noto Sans JP", sans-serif;
+  min-height: 85vh;
   .app-info {
     display: flex;
     align-items: baseline;
