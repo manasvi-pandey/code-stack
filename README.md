@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# [Welcome to Code Stack](https://code-stack.netlify.app)
+A web application built with ReactJS and Firebase
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# What is Code Stack
+My recent interest in JavaScript and ReactJS gave life to Code Stack. Coming from a Backend development profile, I built Code Stack from ground up as my first learner's project in React.
+I experimented with several different things and learnt a lot about React while making this project.
+The idea behind this application was simple as I wanted to develop a complete BLOG using front end technologies. (What could be better then an application with functional CRUD to begin with?)
 
-## Available Scripts
+Code Stack uses React and Firestore for storing and accessing data.
 
-In the project directory, you can run:
+<img src="https://raw.githubusercontent.com/manasvi-pandey/code-stack/main/public/images/code-stack.jpg?token=ASRCTAPFZG7IDPTDWTGCAYLBDEK5Q" alt="Code Stack" />
 
-### `npm start`
+## A simple walk through
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+What can Code Stack do?
+Code Stack offers a variety of different things (more to come in future updates) from Securely logging in and creating a post to editing and bookmarking various posts.
+Some of the main features are 
+- Secure Google Authentication using Firebase
+- Post creations and Post edits
+- Updating user profile
+- Category wise post segregation 
+- Feature to bookmark an important post for accessing it easily
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## What to expect in future updates?
 
-### `npm test`
+As my first project in ReactJS, I am very happy with the work I put in the project and am super excited to add new functionalities to it as I grow my knowledge with JavaScript and React.
+Few things I am planning to add to my first Project are
+- Adding author to favourites for accessing their posts in future
+- Commenting on posts and post replying
+- Theme switching between Light and Dark
+- and much much much more...
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## How to Install and use Code Stack
+``` bash
+# install dependencies
+npm install
 
-### `npm run build`
+# serve with hot reload at localhost:8080
+npm run dev
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# build for production with minification
+npm run build
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# test the production build locally
+npm run serve
+```
