@@ -1,43 +1,9 @@
 import { useState, useEffect, memo } from "react";
-import styled from "styled-components";
+import ArticlesWrapper from "./Articles.style";
 import Loader from "react-loader-spinner";
 import Article from "./Article";
 import { db } from "../../firebase";
 import ArticlesNotFound from "../../assets/articles_not_found.svg";
-
-const ArticlesWrapper = styled.div`
-  margin-top: 1.6rem;
-  padding: 2rem 2rem 20rem 2rem;
-  font-family: "Noto Sans JP", sans-serif;
-
-  h1 {
-    letter-spacing: 0.6px;
-  }
-
-  .no-articles {
-    margin-top: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    img {
-      width: 40%;
-    }
-
-    p {
-      font-family: "Noto Sans JP", sans-serif;
-      font-size: 2rem;
-      font-weight: bolder;
-      margin-top: 1.6rem;
-    }
-  }
-
-  .loader-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
-`;
 
 function Articles({ selectedCategory }) {
   const [loader, setLoader] = useState(true);
